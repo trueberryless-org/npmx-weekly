@@ -140,6 +140,7 @@ async function run() {
       `  <br />`,
       `  Stay curious, keep building, and we'll see you right back here next week! ✨`,
       `</p>`,
+      ``,
     ].join("\n");
 
     const fileContent = `---

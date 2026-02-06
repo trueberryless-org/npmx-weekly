@@ -1,5 +1,5 @@
 ---
-import { BlueskyPost } from "astro-embed";
+import { BlueskyPost } from "@astro-community/astro-embed-bluesky";
 import { Image } from "astro:assets";
 
 interface Source {
@@ -13,10 +13,10 @@ interface Props {
   sources: Source[];
 }
 
-const { title, paragraphs, sources } = Astro.props;
+const { title, paragraphs, sources = [] } = Astro.props;
 
-const primarySource = sources[0];
-const otherSources = sources.slice(1);
+const primarySource = sources && sources.length > 0 ? sources[0] : null;
+const otherSources = sources && sources.length > 1 ? sources.slice(1) : [];
 
 const isGitHub = (url: string) => url.includes("github.com");
 const isBluesky = (url: string) => url.includes("bsky.app");

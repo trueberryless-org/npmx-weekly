@@ -151,6 +151,7 @@ export async function generateWeeklyContent(events: any[], sequence: number) {
       `  <br />`,
       `  Stay curious, keep building, and we'll see you right back here next week! ✨`,
       `</p>`,
+      ``,
     ].join("\n");
 
     return {
