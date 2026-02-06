@@ -14,8 +14,8 @@ export default defineConfig({
     }),
     mdx(),
   ],
-  // image: {
-  //   domains: ["opengraph.githubassets.com"],
-  // },
-  // adapter: netlify(),
+  image: {
+    domains: ["opengraph.githubassets.com"],
+  },
+  adapter: netlify(),
 });
