@@ -1,0 +1,298 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="npmx.weekly"
+      href={new URL("rss.xml", Astro.site)}
+    />
+    <title>{title}</title>
+    <meta
+      name="description"
+      content="An automated news aggregation website that summarizes npmx activity from GitHub and Bluesky every 8 hours."
+    />
+
+    <meta property="og:url" content="https://npmx-weekly.trueberryless.org" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="npmx.weekly" />
+    <meta
+      property="og:description"
+      content="An automated news aggregation website that summarizes npmx activity from GitHub and Bluesky every 8 hours."
+    />
+    <meta
+      property="og:image"
+      content="https://npmx-weekly.trueberryless.org/og.png"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="npmx-weekly.trueberryless.org" />
+    <meta
+      property="twitter:url"
+      content="https://npmx-weekly.trueberryless.org"
+    />
+    <meta name="twitter:title" content="npmx.weekly" />
+    <meta
+      name="twitter:description"
+      content="An automated news aggregation website that summarizes npmx activity from GitHub and Bluesky every 8 hours."
+    />
+    <meta
+      name="twitter:image"
+      content="https://npmx-weekly.trueberryless.org/og.png"
+    />
+
+    <script is:inline>
+      const theme = (() => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+          return "light";
+        }
+        return "dark";
+      })();
+
+      document.documentElement.dataset.theme = theme;
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <nav>
+          <a href="/" class="logo">npmx.<span>weekly</span></a>
+          <div class="links">
+            <a href="/rss.xml">RSS</a>
+            <a href="/archive">Archive</a>
+            <a href="https://github.com/npmx-dev/npmx.dev">GitHub</a>
+            <button id="theme-toggle" aria-label="Toggle light mode">
+              <svg
+                class="sun"
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"
+                ></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"
+                ></path><path d="m17.66 17.66 1.41 1.41"></path><path
+                  d="M2 12h2"></path><path d="M20 12h2"></path><path
+                  d="m6.34 17.66-1.41 1.41"></path><path
+                  d="m19.07 4.93-1.41 1.41"></path></svg
+              >
+              <svg
+                class="moon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg
+              >
+            </button>
+          </div>
+        </nav>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer>
+        <p>A weekly newsletter for the npmx ecosystem.</p>
+        <a
+          href="https://github.com/trueberryless-org/npmx-weekly"
+          class="footer-link">Source Code</a
+        >
+      </footer>
+    </div>
+
+    <script is:inline>
+      const handleToggleClick = () => {
+        const element = document.documentElement;
+        const isLight = element.dataset.theme === "light";
+        const newTheme = isLight ? "dark" : "light";
+
+        element.dataset.theme = newTheme;
+        localStorage.setItem("theme", newTheme);
+      };
+
+      document
+        .getElementById("theme-toggle")
+        .addEventListener("click", handleToggleClick);
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #050505;
+    --text: #e5e5e5;
+    --text-muted: #737373;
+    --accent: #fff;
+    --border: #1a1a1a;
+
+    --tag-daily: #fbbf24;
+    --tag-midday: #f97316;
+    --tag-nightly: #818cf8;
+  }
+
+  [data-theme="light"] {
+    --bg: #ffffff;
+    --text: #171717;
+    --text-muted: #737373;
+    --accent: #000;
+    --border: #e5e5e5;
+
+    --tag-daily: #166534;
+    --tag-midday: #c2410c;
+    --tag-nightly: #4338ca;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition:
+      background 0.3s ease,
+      color 0.3s ease;
+  }
+
+  .wrapper {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+  }
+
+  header {
+    margin-bottom: 4rem;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--accent);
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+
+  .logo span {
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  .links a:hover {
+    color: var(--accent);
+  }
+
+  #theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+  }
+
+  #theme-toggle:hover {
+    color: var(--accent);
+  }
+
+  .sun {
+    display: none;
+  }
+  .moon {
+    display: block;
+  }
+
+  [data-theme="light"] .sun {
+    display: block;
+  }
+  [data-theme="light"] .moon {
+    display: none;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 6rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .footer-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-link:hover {
+    color: var(--accent);
+  }
+
+  hr {
+    border: none;
+    text-align: center;
+    margin: 4rem 0;
+    overflow: visible;
+  }
+
+  hr::after {
+    content: "∗ ∗ ∗";
+    display: inline-block;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    letter-spacing: 0.5rem;
+    opacity: 0.6;
+  }
+</style>

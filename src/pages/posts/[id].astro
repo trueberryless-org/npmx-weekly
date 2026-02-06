@@ -1,0 +1,201 @@
+---
+import {
+  getCollection,
+  getEntries,
+  render,
+  type CollectionEntry,
+} from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post: CollectionEntry<"posts">) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+if (!post) {
+  return Astro.redirect("/404");
+}
+
+const { Content } = await render(post);
+const authors = post.data.authors ? await getEntries(post.data.authors) : [];
+
+const formattedDate = post.data.date.toLocaleDateString("en-US", {
+  weekday: "short",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<Layout title={`${post.data.title} | npmx.weekly`}>
+  <article class="post-content">
+    <header class="post-header">
+      <div class="meta">
+        <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
+      </div>
+
+      <h1>{post.data.title}</h1>
+
+      {
+        post.data.description && (
+          <p class="description">{post.data.description}</p>
+        )
+      }
+
+      {
+        authors.length > 0 && (
+          <div class="authors-section">
+            <span class="section-label">Authors</span>
+            <div class="authors-list">
+              {authors.map((author) => (
+                <a
+                  href={author.data.website}
+                  class="author-badge"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`Visit ${author.data.name}'s website`}
+                >
+                  <img
+                    src={author.data.picture}
+                    alt=""
+                    aria-hidden="true"
+                    class="author-pfp"
+                  />
+                  <span class="author-name">{author.data.name}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )
+      }
+    </header>
+
+    <section class="prose">
+      <Content />
+    </section>
+
+    <nav class="post-nav">
+      <a href="/" class="back-link">← Back to Index</a>
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .post-header {
+    margin-bottom: 4rem;
+  }
+
+  .meta {
+    font-family: monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+
+  .description {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-style: italic;
+    max-width: 550px;
+    margin-bottom: 2rem;
+  }
+
+  .authors-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .authors-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1.5rem;
+    align-items: center;
+  }
+
+  .author-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: color 0.2s ease;
+    font-size: 0.9rem;
+  }
+
+  .author-badge:hover {
+    color: var(--accent);
+  }
+
+  .author-pfp {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--border);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .author-name {
+    font-weight: 500;
+  }
+
+  .prose {
+    font-size: 1.1rem;
+  }
+
+  .prose :global(p) {
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-nav {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .back-link {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 2rem;
+    }
+  }
+</style>

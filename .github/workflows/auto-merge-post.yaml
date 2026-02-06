@@ -1,0 +1,21 @@
+name: Auto-Merge Weekly Post
+on:
+  schedule:
+    - cron: "30 22 * * 7"
+  workflow_dispatch:
+
+jobs:
+  scheduled-merge:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Automerge Scheduled PRs
+        uses: pascalgn/automerge-action@7961b8b5eec56cc088c140b56d864285eabd3f67 # v0.16.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_LABELS: "automerge"
+          MERGE_FILTER_AUTHOR: "github-actions[bot]"
+          MERGE_METHOD: "squash"
+          MERGE_DELETE_BRANCH: "true"

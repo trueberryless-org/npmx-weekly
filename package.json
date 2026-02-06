@@ -1,14 +1,54 @@
 {
   "name": "npmx-weekly",
-  "type": "module",
   "version": "0.0.1",
+  "private": true,
+  "description": "Get the latest news around npmx.",
+  "keywords": [
+    "npmx",
+    "newsletter",
+    "blog",
+    "weekly"
+  ],
+  "homepage": "https://github.com/trueberryless-org/npmx-weekly",
+  "bugs": {
+    "url": "https://github.com/trueberryless-org/npmx-weekly/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trueberryless-org/npmx-weekly.git"
+  },
+  "license": "MIT",
+  "author": "trueberryless <trueberryless@gmail.com> (https://trueberryless.org)",
+  "type": "module",
   "scripts": {
+    "astro": "astro",
+    "backfill": "tsx scripts/backfill.ts",
+    "build": "astro check && astro build",
     "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "generate": "tsx scripts/generate-weekly.ts",
+    "local:backfill": "tsx --env-file=.env scripts/backfill.ts",
+    "local:generate": "tsx --env-file=.env scripts/generate-weekly.ts",
+    "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^5.17.1"
-  }
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/netlify": "^6.6.4",
+    "@astrojs/rss": "^4.0.15",
+    "astro": "^5.17.1",
+    "astro-embed": "^0.12.0",
+    "astro-expressive-code": "^0.41.6",
+    "sanitize-html": "^2.17.0",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "6.0.2",
+    "@types/node": "^22.0.0",
+    "@types/sanitize-html": "^2.16.0",
+    "prettier": "3.8.1",
+    "prettier-plugin-astro": "0.14.1",
+    "tsx": "^4.19.0",
+    "zod": "^3.25.76"
+  },
+  "packageManager": "pnpm@10.10.0"
 }

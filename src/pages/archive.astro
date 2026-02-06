@@ -1,0 +1,148 @@
+---
+import { getCollection, getEntries } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+
+const posts = await getCollection("posts");
+
+const sortedPosts = posts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const formatDate = (date: Date) => date.toISOString().split("T")[0];
+
+const postsWithAuthors = await Promise.all(
+  sortedPosts.map(async (post) => {
+    const authors = post.data.authors
+      ? await getEntries(post.data.authors)
+      : [];
+    return { ...post, authors };
+  }),
+);
+---
+
+<Layout title="Archive | npmx.weekly">
+  <h1 class="page-title">Archives</h1>
+
+  <ul class="archive-list">
+    {
+      postsWithAuthors.map(({ data, id, authors }) => {
+        const displayDate = formatDate(data.date);
+        const postUrl = `/posts/${id}`;
+
+        return (
+          <li class="archive-row">
+            <a href={postUrl} class="archive-item">
+              <div class="authors-pile">
+                {authors.map((author) => (
+                  <img
+                    src={author.data.picture}
+                    alt={author.data.name}
+                    title={author.data.name}
+                    class="pile-pfp"
+                  />
+                ))}
+              </div>
+
+              <span class="title">{data.title}</span>
+
+              <span class="dot" aria-hidden="true" />
+
+              <time datetime={data.date.toISOString()} class="date">
+                {displayDate}
+              </time>
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</Layout>
+
+<style>
+  .page-title {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+  }
+
+  .archive-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .archive-row {
+    width: 100%;
+  }
+
+  .archive-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    gap: 1rem;
+  }
+
+  .archive-item:hover {
+    color: var(--accent);
+  }
+
+  .authors-pile {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    width: 60px;
+  }
+
+  .pile-pfp {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    margin-left: -10px;
+    background: var(--border);
+    object-fit: cover;
+    transition: transform 0.2s ease;
+  }
+
+  .pile-pfp:first-child {
+    margin-left: 0;
+  }
+
+  .title {
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+    min-width: 0;
+    font-weight: 500;
+  }
+
+  .dot {
+    flex-grow: 1;
+    min-width: 20px;
+    border-bottom: 1px dotted var(--text-muted);
+    opacity: 0.2;
+    margin-top: 0.2rem;
+  }
+
+  .date {
+    font-family: monospace;
+    width: 90px;
+    text-align: right;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 500px) {
+    .authors-pile {
+      width: auto;
+    }
+  }
+</style>

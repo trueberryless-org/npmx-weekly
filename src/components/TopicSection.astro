@@ -1,0 +1,212 @@
+---
+import { BlueskyPost } from "astro-embed";
+import { Image } from "astro:assets";
+
+interface Source {
+  platform: "github" | "bluesky" | string;
+  url: string;
+}
+
+interface Props {
+  title: string;
+  paragraphs: string;
+  sources: Source[];
+}
+
+const { title, paragraphs, sources } = Astro.props;
+
+const primarySource = sources[0];
+const otherSources = sources.slice(1);
+
+const isGitHub = (url: string) => url.includes("github.com");
+const isBluesky = (url: string) => url.includes("bsky.app");
+
+const getGitHubOg = (url: string) => {
+  const parts = url.replace("https://github.com/", "").split("/");
+  const [user, repo, type, id] = parts;
+  return `https://opengraph.githubassets.com/1/${user}/${repo}/${type}/${id}`;
+};
+
+const getDisplayLabel = (source: Source) => {
+  const { platform, url } = source;
+
+  if (isGitHub(url)) {
+    const parts = url.split("/");
+    const id = parts.pop();
+    const type = parts.pop();
+
+    if (type === "pull") return `GitHub PR #${id}`;
+    if (type === "issues") return `GitHub Issue #${id}`;
+    if (type === "commit") return `Commit ${id?.substring(0, 7)}`;
+    return "GitHub Resource";
+  }
+
+  if (isBluesky(url)) {
+    const match = url.match(/\/profile\/([^/]+)/);
+    const handle = match ? match[1] : null;
+    return handle ? `Bluesky post by ${handle}` : "Bluesky Post";
+  }
+
+  return platform;
+};
+---
+
+<section class="topic-section">
+  <h2>{title}</h2>
+
+  <div class="immersive-preview">
+    {
+      primarySource && isBluesky(primarySource.url) && (
+        <div class="embed-container">
+          <BlueskyPost id={primarySource.url} />
+        </div>
+      )
+    }
+
+    {
+      primarySource && isGitHub(primarySource.url) && (
+        <a
+          href={primarySource.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="gh-preview"
+        >
+          <Image
+            src={getGitHubOg(primarySource.url)}
+            alt={`GitHub Preview for ${title}`}
+            width={1200}
+            height={600}
+            format="webp"
+            loading="lazy"
+          />
+        </a>
+      )
+    }
+
+    {
+      primarySource &&
+        !isBluesky(primarySource.url) &&
+        !isGitHub(primarySource.url) && (
+          <a href={primarySource.url} class="generic-source-link">
+            {getDisplayLabel(primarySource)} →
+          </a>
+        )
+    }
+  </div>
+
+  <div class="content">
+    {paragraphs.split("\n\n").map((p) => <p>{p}</p>)}
+  </div>
+
+  {
+    otherSources.length > 0 && (
+      <div class="resources">
+        <h3>Resources</h3>
+        <ul>
+          {otherSources.map((source) => (
+            <li>
+              <a href={source.url} target="_blank" rel="noopener noreferrer">
+                {getDisplayLabel(source)}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+</section>
+
+<style>
+  .topic-section {
+    margin: 4rem 0;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+
+  .immersive-preview {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+
+  .gh-preview {
+    display: block;
+    max-width: 800px;
+    width: 90%;
+    transition: transform 0.2s ease;
+  }
+
+  .gh-preview:hover {
+    transform: scale(1.02);
+  }
+
+  .gh-preview img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .embed-container {
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .generic-source-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .resources {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(var(--accent-rgb), 0.05);
+    border-radius: 8px;
+  }
+
+  .resources h3 {
+    font-family: monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: var(--text-muted);
+  }
+
+  .resources ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .resources a {
+    font-size: 0.9rem;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .resources a:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  @media (max-width: 800px) {
+    .immersive-preview {
+      padding: 1rem 0;
+    }
+  }
+</style>
