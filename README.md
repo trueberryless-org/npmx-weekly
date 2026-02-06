@@ -18,6 +18,8 @@ Every week, an automated draft PR is opened for the upcoming post. You can sugge
 
 > [!NOTE]
 > These times are approximate. GitHub Action schedules can occasionally be delayed by up to an hour depending on system load.
+> 
+> Also, please note that any content published elsewhere on Saturday or Sunday is **not** automatically included in the draft, as the base post is generated on Friday. If you have weekend updates, feel free to add them to the PR manually!
 
 ### How to add your content:
 
