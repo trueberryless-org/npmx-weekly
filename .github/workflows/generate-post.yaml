@@ -25,6 +25,15 @@ jobs:
           node-version: "24"
           cache: "pnpm"
 
+      - name: Get Target Date
+        id: date
+        run: |
+          node -e "
+            const d = new Date();
+            d.setDate(d.getDate() + 2);
+            console.log('sunday=' + d.toISOString().split('T')[0]);
+          " >> $GITHUB_OUTPUT
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -39,8 +48,13 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "content: automated weekly post"
-          title: "Weekly Post: ${{ github.event.repository.updated_at }}"
-          body: "Auto-generated on Friday. Will merge Sunday night."
+          title: "Weekly Post: ${{ steps.date.outputs.sunday }}"
+          body: |
+            :wave: This is the automated draft for next Sunday's post!
+
+            If you have a project, update, or anything else regarding **npmx** that you'd like to share, you are welcome to suggest a new section by contributing to this PR.
+
+            This PR will remain open for community additions until Sunday evening, when it will be merged automatically. Please ping @trueberryless on your suggestions so they don't get missed!
           branch: "content/automated-weekly-post"
           labels: "🕔 weekly post,automerge"
           delete-branch: true
