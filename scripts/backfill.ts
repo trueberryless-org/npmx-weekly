@@ -98,6 +98,10 @@ async function run() {
     Return ONLY JSON:
     {
       "description": "...",
+      "quote": {
+        "text": "A famous inspirational quote that fits the theme of that week's topic",
+        "author": "The author of the quote"
+      },
       "intro": "...",
       "topics": [
         {
@@ -125,6 +129,12 @@ async function run() {
 
     const mdxBody = [
       `import TopicSection from "../../components/TopicSection.astro";`,
+      ``,
+      `> “${parsed.quote.text}”`,
+      `>`,
+      `> — **${parsed.quote.author}**`,
+      ``,
+      `## Updates from Missing Control`,
       ``,
       parsed.intro,
       ``,

@@ -52,7 +52,7 @@ const getDisplayLabel = (source: Source) => {
 ---
 
 <section class="topic-section">
-  <h2>{title}</h2>
+  <h3>{title}</h3>
 
   <div class="immersive-preview">
     {
@@ -101,7 +101,7 @@ const getDisplayLabel = (source: Source) => {
   {
     otherSources.length > 0 && (
       <div class="resources">
-        <h3>Resources</h3>
+        <h4>Resources</h4>
         <ul>
           {otherSources.map((source) => (
             <li>
@@ -121,8 +121,8 @@ const getDisplayLabel = (source: Source) => {
     margin: 4rem 0;
   }
 
-  h2 {
-    font-size: 1.8rem;
+  h3 {
+    font-size: 1.6rem;
     margin-bottom: 1.5rem;
     color: var(--text);
   }
@@ -176,7 +176,7 @@ const getDisplayLabel = (source: Source) => {
     border-radius: 8px;
   }
 
-  .resources h3 {
+  .resources h4 {
     font-family: monospace;
     font-size: 0.8rem;
     text-transform: uppercase;

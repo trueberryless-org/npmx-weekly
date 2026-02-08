@@ -100,13 +100,17 @@ export async function generateWeeklyContent(events: any[], sequence: number) {
     }));
 
   const prompt = `You are a technical writer for npmx.
-  Summarize these signals into a weekly digest. Pick a maximum of 15 most impactful topics.
+  Summarize these signals into a weekly digest. Pick a maximum of 10 most impactful topics.
 
   Signals: ${JSON.stringify(prunedData)}
 
   Return ONLY JSON:
   {
     "description": "...",
+    "quote": {
+      "text": "A famous inspirational quote that fits the theme of this week's topic",
+      "author": "The author of the quote"
+    },
     "intro": "...",
     "topics": [
       {
@@ -132,9 +136,14 @@ export async function generateWeeklyContent(events: any[], sequence: number) {
 
     const parsed = JSON.parse(data.choices[0].message.content);
 
-    // Convert the JSON structure into the final MDX body
     const mdxBody = [
       `import TopicSection from "../../components/TopicSection.astro";`,
+      ``,
+      `> “${parsed.quote.text}”`,
+      `>`,
+      `> — **${parsed.quote.author}**`,
+      ``,
+      `## Updates from Missing Control`,
       ``,
       parsed.intro,
       ``,
