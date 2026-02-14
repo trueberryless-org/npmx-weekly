@@ -2,8 +2,10 @@ import type { APIRoute } from "astro";
 import { RESEND_API_KEY, RESEND_SEGMENT_ID } from "astro:env/server";
 import { Resend } from "resend";
 
+export const prerender = false;
+
 const resend = new Resend(RESEND_API_KEY);
-const PRIMARY_COLOR = "#38536E";
+const PRIMARY_COLOR = "#5092EA";
 
 const WELCOME_HTML = `
 <!DOCTYPE html>
@@ -22,7 +24,7 @@ const WELCOME_HTML = `
   </head>
   <body>
     <div class="container">
-      <img src="https://raw.githubusercontent.com/trueberryless-org/npmx-digest/main/public/banner.png" alt="npmx banner" class="banner" />
+      <img src="https://raw.githubusercontent.com/trueberryless-org/npmx-weekly/feat/email/public/banner.png" alt="npmx banner" class="banner" />
       <div class="content">
         <h1>Welcome to npmx Weekly!</h1>
         <p>Thanks for subscribing! You're now on the list to receive the latest updates from the npmx ecosystem.</p>

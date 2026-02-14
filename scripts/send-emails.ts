@@ -31,7 +31,7 @@ async function generateEmailHtml(events: any[], sequence: number) {
   Return ONLY JSON:
   {
     "subject": "Quick Catch-up: npmx Weekly #${sequence}",
-    "headline": "npmx Weekly Digest #${sequence}",
+    "headline": "npmx Weekly #${sequence}",
     "intro": "A 2-sentence punchy intro.",
     "topics": [{ "title": "...", "summary": "..." }]
   }`;
@@ -55,7 +55,7 @@ async function generateEmailHtml(events: any[], sequence: number) {
   const data = await response.json();
   const parsed = JSON.parse(data.choices[0].message.content);
 
-  const PRIMARY_COLOR = "#38536E";
+  const PRIMARY_COLOR = "#5092EA";
 
   return {
     subject: parsed.subject,
@@ -81,7 +81,7 @@ async function generateEmailHtml(events: any[], sequence: number) {
       </head>
       <body>
         <div class="container">
-          <img src="https://raw.githubusercontent.com/trueberryless-org/npmx-digest/main/public/banner.png" alt="npmx banner" class="banner" />
+          <img src="https://raw.githubusercontent.com/trueberryless-org/npmx-weekly/main/public/banner.png" alt="npmx banner" class="banner" />
           <div class="content">
             <h1>${parsed.headline}</h1>
             <p>${parsed.intro}</p>
@@ -102,7 +102,7 @@ async function generateEmailHtml(events: any[], sequence: number) {
             </div>
           </div>
           <div class="footer">
-            <p>You're receiving the npmx weekly digest. Not interested?</p>
+            <p>You're receiving the npmx weekly newsletter. Not interested?</p>
             <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" class="unsub">Unsubscribe here</a>
           </div>
         </div>
