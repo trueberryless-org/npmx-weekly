@@ -52,8 +52,16 @@ async function generateEmailHtml(events: any[], sequence: number) {
     },
   );
 
+  if (!response.ok) {
+    throw new Error(`Model API returned ${response.status}: ${await response.text()}`);
+  }
+
   const data = await response.json();
-  const parsed = JSON.parse(data.choices[0].message.content);
+  const content = data.choices?.[0]?.message?.content;
+  if (!content) {
+    throw new Error("Model returned no content in response.");
+  }
+  const parsed = JSON.parse(content);
 
   const PRIMARY_COLOR = "#5092EA";
 
