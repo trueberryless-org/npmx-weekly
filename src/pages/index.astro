@@ -96,6 +96,8 @@ const postsWithAuthors = await Promise.all(
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
+    const btn = form.querySelector("button") as HTMLButtonElement;
+    btn.disabled = true;
     const formData = new FormData(form);
     const email = formData.get("email");
 
@@ -126,6 +128,8 @@ const postsWithAuthors = await Promise.all(
         msg.textContent = "Something went wrong. Please try again.";
         msg.className = "form-msg error";
       }
+    } finally {
+      btn.disabled = false;
     }
   });
 </script>
