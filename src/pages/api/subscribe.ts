@@ -78,12 +78,16 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // 3. Send the Welcome Email
-    await resend.emails.send({
+    const { error: sendError } = await resend.emails.send({
       from: "npmx Weekly <no-reply@trueberryless.org>",
       to: email,
       subject: "Welcome to npmx Weekly! ✨",
       html: WELCOME_HTML,
     });
+
+    if (sendError) {
+      console.error("Welcome email failed:", sendError.message);
+    }
 
     return new Response(
       JSON.stringify({ message: "Welcome to the club! ✨" }),
