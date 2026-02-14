@@ -24,7 +24,7 @@ const WELCOME_HTML = `
   </head>
   <body>
     <div class="container">
-      <img src="https://raw.githubusercontent.com/trueberryless-org/npmx-weekly/feat/email/public/banner.png" alt="npmx banner" class="banner" />
+      <img src="https://raw.githubusercontent.com/trueberryless-org/npmx-weekly/main/public/banner.png" alt="npmx banner" class="banner" />
       <div class="content">
         <h1>Welcome to npmx Weekly!</h1>
         <p>Thanks for subscribing! You're now on the list to receive the latest updates from the npmx ecosystem.</p>
