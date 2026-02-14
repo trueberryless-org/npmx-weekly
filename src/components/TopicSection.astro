@@ -1,9 +1,10 @@
 ---
 import { BlueskyPost } from "@astro-community/astro-embed-bluesky";
 import { Image } from "astro:assets";
+import { marked } from "marked";
 
 interface Source {
-  platform: "github" | "bluesky" | string;
+  platform: "github" | "bluesky" | "web" | string;
   url: string;
 }
 
@@ -15,6 +16,8 @@ interface Props {
 
 const { title, paragraphs, sources = [] } = Astro.props;
 
+const content = marked.parse(paragraphs);
+
 const primarySource = sources && sources.length > 0 ? sources[0] : null;
 const otherSources = sources && sources.length > 1 ? sources.slice(1) : [];
 
@@ -25,6 +28,10 @@ const getGitHubOg = (url: string) => {
   const parts = url.replace("https://github.com/", "").split("/");
   const [user, repo, type, id] = parts;
   return `https://opengraph.githubassets.com/1/${user}/${repo}/${type}/${id}`;
+};
+
+const getMetaOgImage = (url: string) => {
+  return `https://api.microlink.io?url=${encodeURIComponent(url)}&embed=image.url`;
 };
 
 const getDisplayLabel = (source: Source) => {
@@ -45,6 +52,15 @@ const getDisplayLabel = (source: Source) => {
     const match = url.match(/\/profile\/([^/]+)/);
     const handle = match ? match[1] : null;
     return handle ? `Bluesky post by ${handle}` : "Bluesky Post";
+  }
+
+  if (platform === "web") {
+    try {
+      const { hostname } = new URL(url);
+      return hostname.replace("www.", "");
+    } catch {
+      return "Web Link";
+    }
   }
 
   return platform;
@@ -87,16 +103,29 @@ const getDisplayLabel = (source: Source) => {
       primarySource &&
         !isBluesky(primarySource.url) &&
         !isGitHub(primarySource.url) && (
-          <a href={primarySource.url} class="generic-source-link">
-            {getDisplayLabel(primarySource)} →
+          <a
+            href={primarySource.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="web-preview"
+          >
+            <div class="web-preview-container">
+              <img
+                src={getMetaOgImage(primarySource.url)}
+                alt={`Preview for ${title}`}
+                loading="lazy"
+                onerror="this.parentElement.style.display='none'"
+              />
+              <div class="web-preview-overlay">
+                <span>{getDisplayLabel(primarySource)}</span>
+              </div>
+            </div>
           </a>
         )
     }
   </div>
 
-  <div class="content">
-    {paragraphs.split("\n\n").map((p) => <p>{p}</p>)}
-  </div>
+  <div class="content" set:html={content} />
 
   {
     otherSources.length > 0 && (
@@ -206,6 +235,46 @@ const getDisplayLabel = (source: Source) => {
 
   .resources a:hover {
     border-bottom-color: var(--accent);
+  }
+
+  .web-preview {
+    display: block;
+    width: 90%;
+    max-width: 800px;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+  }
+
+  .web-preview:hover {
+    transform: scale(1.02);
+  }
+
+  .web-preview-container {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    background: #1a1a1a;
+    aspect-ratio: 1200 / 630;
+  }
+
+  .web-preview-container img {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* Changed to contain to ensure the full OG image is visible */
+    background: #000;
+  }
+
+  .web-preview-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    font-size: 0.9rem;
+    font-weight: bold;
   }
 
   @media (max-width: 800px) {
