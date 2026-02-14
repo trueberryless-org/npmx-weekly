@@ -41,7 +41,15 @@ const WELCOME_HTML = `
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const { email } = await request.json();
+    let body: any;
+    try {
+      body = await request.json();
+    } catch {
+      return new Response(JSON.stringify({ message: "Invalid JSON body" }), {
+        status: 400,
+      });
+    }
+    const { email } = body;
 
     if (!email || typeof email !== "string") {
       return new Response(JSON.stringify({ message: "Email is required" }), {

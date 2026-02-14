@@ -1,8 +1,6 @@
 import { Resend } from "resend";
 import { getNextSequenceNumber, fetchThisWeeksEvents } from "../src/lib/events";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 const LOG = {
   info: (msg: string) => console.log(`\x1b[34m[INFO]\x1b[0m ${msg}`),
   success: (msg: string) => console.log(`\x1b[32m[SUCCESS]\x1b[0m ${msg}`),
@@ -17,11 +15,21 @@ function getRequiredEnv(key: string): string {
   return value;
 }
 
-async function generateEmailHtml(events: any[], sequence: number) {
+const resend = new Resend(getRequiredEnv("RESEND_API_KEY"));
+
+async function generateEmailHtml(
+  events: any[],
+  sequence: number,
+  modelsToken: string,
+) {
   const prunedData = events
     .flatMap((report) => report.topics || [])
     .filter((topic) => topic.relevanceScore >= 9)
     .map((t) => ({ t: t.title, s: t.summary }));
+
+  if (prunedData.length === 0) {
+    throw new Error("No high-relevance topics found for this week's digest.");
+  }
 
   const prompt = `You are a technical editor for npmx. Create a condensed email newsletter.
   Pick the TOP 3 most impactful topics only.
@@ -42,7 +50,7 @@ async function generateEmailHtml(events: any[], sequence: number) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.MODELS_TOKEN}`,
+        Authorization: `Bearer ${modelsToken}`,
       },
       body: JSON.stringify({
         messages: [{ role: "user", content: prompt }],
@@ -125,6 +133,7 @@ async function run() {
 
   try {
     const segmentId = getRequiredEnv("RESEND_SEGMENT_ID");
+    const modelsToken = getRequiredEnv("MODELS_TOKEN");
     const seq = (await getNextSequenceNumber()) - 1;
     const rawEvents = await fetchThisWeeksEvents();
 
@@ -133,7 +142,7 @@ async function run() {
       return;
     }
 
-    const emailData = await generateEmailHtml(rawEvents, seq);
+    const emailData = await generateEmailHtml(rawEvents, seq, modelsToken);
 
     const { data, error } = await resend.broadcasts.create({
       segmentId: segmentId,
