@@ -32,5 +32,5 @@ Every week, an automated draft PR is opened for the upcoming post. You can sugge
 ## 📧 Email Newsletter
 
 In addition to the blog post, we send a condensed weekly digest via email.
-* **Reviewing:** The email content is stored as JSON in `src/content/emails/`. 
-* **Broadcast:** Once the automated PR is merged on Sunday, the newsletter is automatically broadcasted to all subscribers via [Resend](https://resend.com).
+- **Reviewing:** The email content is stored as JSON in `src/content/emails/`.
+- **Broadcast:** Once the automated PR is merged on Sunday, the newsletter is automatically broadcasted to all subscribers via [Resend](https://resend.com).
