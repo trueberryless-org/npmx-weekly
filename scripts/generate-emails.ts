@@ -77,6 +77,15 @@ async function generateEmailData(
 
   const rawParsed = JSON.parse(content) as EmailParsedData;
 
+  if (
+    !rawParsed.subject ||
+    !rawParsed.headline ||
+    !rawParsed.intro ||
+    !Array.isArray(rawParsed.topics)
+  ) {
+    throw new Error("Model returned malformed email data: " + content);
+  }
+
   const sanitizeOptions = {
     allowedTags: ["b", "i", "em", "strong", "a"],
     allowedAttributes: {
@@ -85,7 +94,7 @@ async function generateEmailData(
   };
 
   return {
-    subject: rawParsed.subject,
+    subject: sanitizeHtml(rawParsed.subject, sanitizeOptions),
     headline: sanitizeHtml(rawParsed.headline, sanitizeOptions),
     intro: sanitizeHtml(rawParsed.intro, sanitizeOptions),
     topics: rawParsed.topics.map((topic) => ({
@@ -110,6 +119,10 @@ async function run() {
     const latestEventSeq = rawEvents[0]?.sequence;
     const seq =
       latestEventSeq ?? Math.max(1, (await getNextSequenceNumber()) - 1);
+
+    if (seq <= 0) {
+      throw new Error(`Invalid sequence number: ${seq}`);
+    }
 
     LOG.info(`Processing Draft for Weekly Digest #${seq}`);
 
