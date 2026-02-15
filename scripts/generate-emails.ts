@@ -105,13 +105,7 @@ async function run() {
       process.exit(1);
     }
 
-    const sortedEvents = [...rawEvents]
-      .filter((e) => typeof e.sequence === "number")
-      .sort((a, b) => b.sequence - a.sequence);
-
-    const latestEventSeq = sortedEvents[0]?.sequence;
-    const nextSeq = await getNextSequenceNumber();
-    const seq = latestEventSeq ?? Math.max(1, nextSeq - 1);
+    const seq = await getNextSequenceNumber();
 
     if (seq <= 0) {
       throw new Error(`Invalid sequence number: ${seq}`);
