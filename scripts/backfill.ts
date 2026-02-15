@@ -1,13 +1,18 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { LOG, getRequiredEnv, POST_DIR } from "./utils";
+import {
+  LOG,
+  getRequiredEnv,
+  POST_DIR,
+  INFERENCE_URL,
+  INFERENCE_TIMEOUT,
+} from "./utils";
 
 // --- Configuration ---
 const MANUAL_SEQ = 1;
 const START_DATE = "2026-01-22";
 const END_DATE = "2026-01-25";
 
-const INFERENCE_URL = "https://models.inference.ai.azure.com/chat/completions";
 const GITHUB_RAW_BASE =
   "https://raw.githubusercontent.com/trueberryless-org/npmx-digest/main/src/content/posts";
 
@@ -20,6 +25,7 @@ async function requestInference(payload: object) {
       Authorization: `Bearer ${token}`,
       "User-Agent": "npmx-backfill-bot",
     },
+    signal: AbortSignal.timeout(INFERENCE_TIMEOUT),
     body: JSON.stringify(payload),
   });
   if (!response.ok)

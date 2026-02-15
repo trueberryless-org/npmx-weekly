@@ -3,7 +3,13 @@ import { mkdir, writeFile } from "node:fs/promises";
 import sanitizeHtml from "sanitize-html";
 import { getNextSequenceNumber, fetchThisWeeksEvents } from "../src/lib/events";
 import type { EmailParsedData } from "../src/email-templates";
-import { LOG, getRequiredEnv, EMAIL_DIR } from "./utils";
+import {
+  LOG,
+  getRequiredEnv,
+  EMAIL_DIR,
+  INFERENCE_URL,
+  INFERENCE_TIMEOUT,
+} from "./utils";
 
 async function generateEmailData(
   events: any[],
@@ -32,21 +38,19 @@ async function generateEmailData(
     "topics": [{ "title": "...", "summary": "..." }]
   }`;
 
-  const response = await fetch(
-    "https://models.inference.ai.azure.com/chat/completions",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${modelsToken}`,
-      },
-      body: JSON.stringify({
-        messages: [{ role: "user", content: prompt }],
-        model: "gpt-4o-mini",
-        response_format: { type: "json_object" },
-      }),
+  const response = await fetch(INFERENCE_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${modelsToken}`,
     },
-  );
+    signal: AbortSignal.timeout(INFERENCE_TIMEOUT),
+    body: JSON.stringify({
+      messages: [{ role: "user", content: prompt }],
+      model: "gpt-4o-mini",
+      response_format: { type: "json_object" },
+    }),
+  });
 
   if (!response.ok) {
     throw new Error(
@@ -101,12 +105,13 @@ async function run() {
       process.exit(1);
     }
 
-    const sortedEvents = [...rawEvents].sort(
-      (a, b) => (b.sequence || 0) - (a.sequence || 0),
-    );
+    const sortedEvents = [...rawEvents]
+      .filter((e) => typeof e.sequence === "number")
+      .sort((a, b) => b.sequence - a.sequence);
+
     const latestEventSeq = sortedEvents[0]?.sequence;
-    const seq =
-      latestEventSeq ?? Math.max(1, (await getNextSequenceNumber()) - 1);
+    const nextSeq = await getNextSequenceNumber();
+    const seq = latestEventSeq ?? Math.max(1, nextSeq - 1);
 
     if (seq <= 0) {
       throw new Error(`Invalid sequence number: ${seq}`);
