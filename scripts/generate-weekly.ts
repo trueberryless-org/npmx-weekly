@@ -5,8 +5,7 @@ import {
   fetchThisWeeksEvents,
   generateWeeklyContent,
 } from "../src/lib/events";
-
-const POST_DIR = join(process.cwd(), "src/content/posts");
+import { POST_DIR } from "./utils";
 
 async function runWeekly() {
   console.log("\x1b[1m🚀 Generating npmx Weekly Digest\x1b[0m");

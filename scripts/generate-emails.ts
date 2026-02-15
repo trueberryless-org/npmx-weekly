@@ -3,22 +3,7 @@ import fs from "node:fs";
 import sanitizeHtml from "sanitize-html";
 import { getNextSequenceNumber, fetchThisWeeksEvents } from "../src/lib/events";
 import type { EmailParsedData } from "../src/email-templates";
-
-const POST_DIR = join(process.cwd(), "src/content/emails");
-
-const LOG = {
-  info: (msg: string) => console.log(`\x1b[34m[INFO]\x1b[0m ${msg}`),
-  success: (msg: string) => console.log(`\x1b[32m[SUCCESS]\x1b[0m ${msg}`),
-  error: (msg: string) => console.error(`\x1b[31m[ERROR]\x1b[0m ${msg}`),
-};
-
-function getRequiredEnv(key: string): string {
-  const value = process.env[key];
-  if (value === undefined || value === null || value === "") {
-    throw new Error(`Environment variable ${key} is missing or empty.`);
-  }
-  return value;
-}
+import { LOG, getRequiredEnv, EMAIL_DIR } from "./utils";
 
 async function generateEmailData(
   events: any[],
@@ -113,10 +98,13 @@ async function run() {
 
     if (rawEvents.length === 0) {
       LOG.error("No events found. Aborting draft generation.");
-      return;
+      process.exit(1);
     }
 
-    const latestEventSeq = rawEvents[0]?.sequence;
+    const sortedEvents = [...rawEvents].sort(
+      (a, b) => (b.sequence || 0) - (a.sequence || 0),
+    );
+    const latestEventSeq = sortedEvents[0]?.sequence;
     const seq =
       latestEventSeq ?? Math.max(1, (await getNextSequenceNumber()) - 1);
 
@@ -134,11 +122,11 @@ async function run() {
       generatedAt: new Date().toISOString(),
     };
 
-    if (!fs.existsSync(POST_DIR)) {
-      fs.mkdirSync(POST_DIR, { recursive: true });
+    if (!fs.existsSync(EMAIL_DIR)) {
+      fs.mkdirSync(EMAIL_DIR, { recursive: true });
     }
 
-    const filePath = join(POST_DIR, `${seq}.json`);
+    const filePath = join(EMAIL_DIR, `${seq}.json`);
     fs.writeFileSync(filePath, JSON.stringify(payload, null, 2));
 
     LOG.success(`Draft successfully saved to: ${filePath}`);

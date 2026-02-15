@@ -1,5 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
+import { LOG, getRequiredEnv, POST_DIR } from "./utils";
 
 // --- Configuration ---
 const MANUAL_SEQ = 1;
@@ -9,20 +10,6 @@ const END_DATE = "2026-01-25";
 const INFERENCE_URL = "https://models.inference.ai.azure.com/chat/completions";
 const GITHUB_RAW_BASE =
   "https://raw.githubusercontent.com/trueberryless-org/npmx-digest/main/src/content/posts";
-const POST_DIR = join(process.cwd(), "src/content/posts");
-
-const LOG = {
-  info: (msg: string) => console.log(`\x1b[34m[INFO]\x1b[0m ${msg}`),
-  success: (msg: string) => console.log(`\x1b[32m[SUCCESS]\x1b[0m ${msg}`),
-  ai: (msg: string) => console.log(`\x1b[35m[AI]\x1b[0m ${msg}`),
-  error: (msg: string) => console.error(`\x1b[31m[ERROR]\x1b[0m ${msg}`),
-};
-
-function getRequiredEnv(key: string): string {
-  const value = process.env[key];
-  if (!value) throw new Error(`Environment variable ${key} is missing.`);
-  return value;
-}
 
 async function requestInference(payload: object) {
   const token = getRequiredEnv("MODELS_TOKEN");
