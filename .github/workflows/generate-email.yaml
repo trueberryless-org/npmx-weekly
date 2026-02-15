@@ -1,0 +1,49 @@
+name: Generate Weekly Email Draft
+
+on:
+  schedule:
+    - cron: "0 18 * * 5"
+  workflow_dispatch:
+
+jobs:
+  generate-email:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate email draft
+        env:
+          MODELS_TOKEN: ${{ secrets.MODELS_TOKEN }}
+        run: pnpm run generate:email
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "content: automated weekly email"
+          title: "Weekly Email: ${{ github.event.schedule || 'Manual' }}"
+          body: |
+            :envelope: This is the automated email topics for this week.
+
+            Review the generated JSON in `src/content/emails/`.
+            This PR will be merged automatically on Sunday, which will trigger the Resend broadcast.
+          branch: "content/automated-weekly-email"
+          labels: "🕔 weekly email,automerge"
+          delete-branch: true

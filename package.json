@@ -26,9 +26,11 @@
     "build": "astro check && astro build",
     "dev": "astro dev",
     "generate": "tsx scripts/generate-weekly.ts",
+    "generate:email": "tsx scripts/generate-emails.ts",
     "send:email": "tsx scripts/send-emails.ts",
     "local:backfill": "tsx --env-file=.env scripts/backfill.ts",
     "local:generate": "tsx --env-file=.env scripts/generate-weekly.ts",
+    "local:generate:email": "tsx --env-file=.env scripts/generate-emails.ts",
     "local:send:email": "tsx --env-file=.env scripts/send-emails.ts",
     "preview": "astro preview"
   },

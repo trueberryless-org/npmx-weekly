@@ -1,16 +1,12 @@
 import { Resend } from "resend";
-import sanitizeHtml from "sanitize-html";
-import { getNextSequenceNumber, fetchThisWeeksEvents } from "../src/lib/events";
+import fs from "fs";
+import path, { join } from "node:path";
 import {
   getWeeklyDigestHtml,
   type EmailParsedData,
 } from "../src/email-templates";
 
-const LOG = {
-  info: (msg: string) => console.log(`\x1b[34m[INFO]\x1b[0m ${msg}`),
-  success: (msg: string) => console.log(`\x1b[32m[SUCCESS]\x1b[0m ${msg}`),
-  error: (msg: string) => console.error(`\x1b[31m[ERROR]\x1b[0m ${msg}`),
-};
+const POST_DIR = join(process.cwd(), "src/content/emails");
 
 function getRequiredEnv(key: string): string {
   const value = process.env[key];
@@ -21,128 +17,34 @@ function getRequiredEnv(key: string): string {
 }
 
 const resend = new Resend(getRequiredEnv("RESEND_API_KEY"));
+const segmentId = getRequiredEnv("RESEND_SEGMENT_ID");
 
-async function generateEmailHtml(
-  events: any[],
-  sequence: number,
-  modelsToken: string,
-) {
-  const prunedData = events
-    .flatMap((report) => report.topics || [])
-    .filter((topic) => topic.relevanceScore >= 9)
-    .map((t) => ({ t: t.title, s: t.summary }));
+async function send() {
+  const files = fs
+    .readdirSync(POST_DIR)
+    .filter((f) => f.endsWith(".json"))
+    .sort((a, b) => parseInt(a) - parseInt(b));
 
-  if (prunedData.length === 0) {
-    throw new Error("No high-relevance topics found for this week's digest.");
-  }
+  const latestFile = files[files.length - 1];
+  const sequence = parseInt(latestFile.replace(".json", ""), 10);
 
-  const prompt = `You are a technical editor for npmx. Create a condensed email newsletter.
-  Pick the TOP 3 most impactful topics only.
+  const content = JSON.parse(
+    fs.readFileSync(path.join(POST_DIR, latestFile), "utf-8"),
+  ) as EmailParsedData;
 
-  Signals: ${JSON.stringify(prunedData)}
+  const html = getWeeklyDigestHtml(content, sequence);
 
-  Return ONLY JSON:
-  {
-    "subject": "Quick Catch-up: npmx Weekly #${sequence}",
-    "headline": "npmx Weekly #${sequence}",
-    "intro": "A 2-sentence punchy intro.",
-    "topics": [{ "title": "...", "summary": "..." }]
-  }`;
+  const { data, error } = await resend.broadcasts.create({
+    segmentId: segmentId,
+    name: content.subject,
+    from: "npmx Weekly <no-reply@trueberryless.org>",
+    subject: content.subject,
+    html: html,
+    send: true,
+  });
 
-  const response = await fetch(
-    "https://models.inference.ai.azure.com/chat/completions",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${modelsToken}`,
-      },
-      body: JSON.stringify({
-        messages: [{ role: "user", content: prompt }],
-        model: "gpt-4o-mini",
-        response_format: { type: "json_object" },
-      }),
-    },
-  );
-
-  if (!response.ok) {
-    throw new Error(
-      `Model API returned ${response.status}: ${await response.text()}`,
-    );
-  }
-
-  const data = await response.json();
-  const content = data.choices?.[0]?.message?.content;
-  if (!content) {
-    throw new Error("Model returned no content in response.");
-  }
-
-  const rawParsed = JSON.parse(content) as EmailParsedData;
-
-  const sanitizeOptions = {
-    allowedTags: ["b", "i", "em", "strong", "a"],
-    allowedAttributes: {
-      a: ["href"],
-    },
-  };
-
-  const parsed: EmailParsedData = {
-    subject: rawParsed.subject,
-    headline: sanitizeHtml(rawParsed.headline, sanitizeOptions),
-    intro: sanitizeHtml(rawParsed.intro, sanitizeOptions),
-    topics: rawParsed.topics.map((topic) => ({
-      title: sanitizeHtml(topic.title, sanitizeOptions),
-      summary: sanitizeHtml(topic.summary, sanitizeOptions),
-    })),
-  };
-
-  return {
-    subject: parsed.subject,
-    html: getWeeklyDigestHtml(parsed, sequence),
-  };
+  if (error) throw error;
+  console.log(`Successfully broadcasted ${latestFile} (Sequence: ${sequence})`);
 }
 
-async function run() {
-  LOG.info("🚀 Preparing Broadcast...");
-
-  try {
-    const segmentId = getRequiredEnv("RESEND_SEGMENT_ID");
-    const modelsToken = getRequiredEnv("MODELS_TOKEN");
-
-    const rawEvents = await fetchThisWeeksEvents();
-
-    if (rawEvents.length === 0) {
-      LOG.error("No events found. Aborting broadcast.");
-      return;
-    }
-
-    const latestEventSeq = rawEvents[0]?.sequence;
-    const seq =
-      latestEventSeq ?? Math.max(1, (await getNextSequenceNumber()) - 1);
-
-    LOG.info(`Processing Weekly Digest #${seq}`);
-
-    const emailData = await generateEmailHtml(rawEvents, seq, modelsToken);
-
-    const { data, error } = await resend.broadcasts.create({
-      segmentId: segmentId,
-      name: emailData.subject,
-      from: "npmx Weekly <no-reply@trueberryless.org>",
-      subject: emailData.subject,
-      html: emailData.html,
-      send: true,
-    });
-
-    if (error !== null) {
-      throw new Error(JSON.stringify(error, null, 2));
-    }
-    LOG.success(`Broadcast sent! ID: ${data?.id}`);
-  } catch (error) {
-    const errorMessage =
-      error instanceof Error ? error.message : JSON.stringify(error);
-    LOG.error(`Broadcast failed: ${errorMessage}`);
-    process.exit(1);
-  }
-}
-
-run();
+send();

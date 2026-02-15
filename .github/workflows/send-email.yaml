@@ -1,0 +1,35 @@
+name: Broadcast Weekly Email
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/content/emails/*.json"
+
+jobs:
+  broadcast:
+    if: github.actor == 'github-actions[bot]' || contains(github.event.head_commit.message, 'automated weekly')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Send Email via Resend
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_SEGMENT_ID: ${{ secrets.RESEND_SEGMENT_ID }}
+        run: pnpm run send:email
