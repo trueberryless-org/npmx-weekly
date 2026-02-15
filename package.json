@@ -55,5 +55,8 @@
     "prettier-plugin-astro": "0.14.1",
     "tsx": "^4.19.0"
   },
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "packageManager": "pnpm@10.10.0"
 }
