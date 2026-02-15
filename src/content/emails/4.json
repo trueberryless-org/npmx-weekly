@@ -1,0 +1,21 @@
+{
+  "sequence": 4,
+  "subject": "npmx Weekly #4",
+  "headline": "npmx Weekly #4",
+  "intro": "Exciting updates have emerged in our community this week! We're focused on enhancing user experience, security, and performance across the platform.",
+  "topics": [
+    {
+      "title": "Performance Enhancements",
+      "summary": "Recent merges optimize Algolia search functionality, making search processes faster and splitting suggestion logic to improve user experience."
+    },
+    {
+      "title": "Security Features",
+      "summary": "New security enhancements now detect npm publish security downgrades, providing users with clearer information about vulnerabilities in packages for better protection."
+    },
+    {
+      "title": "UI and Component Refactoring",
+      "summary": "Multiple pull requests have refactored UI components, resolving regressions in icon sizes and improving link/button styles for a more consistent design across the application."
+    }
+  ],
+  "generatedAt": "2026-02-15T21:54:58.968Z"
+}
