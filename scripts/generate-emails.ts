@@ -1,5 +1,5 @@
 import { join } from "node:path";
-import fs from "node:fs";
+import { mkdir, writeFile } from "node:fs/promises";
 import sanitizeHtml from "sanitize-html";
 import { getNextSequenceNumber, fetchThisWeeksEvents } from "../src/lib/events";
 import type { EmailParsedData } from "../src/email-templates";
@@ -122,12 +122,10 @@ async function run() {
       generatedAt: new Date().toISOString(),
     };
 
-    if (!fs.existsSync(EMAIL_DIR)) {
-      fs.mkdirSync(EMAIL_DIR, { recursive: true });
-    }
+    await mkdir(EMAIL_DIR, { recursive: true });
 
     const filePath = join(EMAIL_DIR, `${seq}.json`);
-    fs.writeFileSync(filePath, JSON.stringify(payload, null, 2));
+    await writeFile(filePath, JSON.stringify(payload, null, 2));
 
     LOG.success(`Draft successfully saved to: ${filePath}`);
     LOG.info("You can now review and edit this JSON in your Pull Request.");

@@ -1,4 +1,4 @@
-name: Broadcast Weekly Email
+name: Send Weekly Email
 
 on:
   push:
@@ -7,9 +7,13 @@ on:
     paths:
       - "src/content/emails/*.json"
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   broadcast:
-    if: github.actor == 'trueberryless-org[bot]' || contains(github.event.head_commit.message, 'automated weekly')
+    if: github.actor == 'trueberryless-org[bot]' && contains(github.event.head_commit.message, 'automated weekly')
     runs-on: ubuntu-latest
 
     steps:

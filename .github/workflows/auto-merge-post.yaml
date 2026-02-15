@@ -10,11 +10,18 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+
     steps:
+      - name: Generate Token
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
       - name: Automerge Scheduled PRs
         uses: pascalgn/automerge-action@7961b8b5eec56cc088c140b56d864285eabd3f67 # v0.16.4
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           MERGE_LABELS: "automerge"
           MERGE_FILTER_AUTHOR: "github-actions[bot]"
           MERGE_METHOD: "squash"

@@ -5,17 +5,21 @@ import {
   fetchThisWeeksEvents,
   generateWeeklyContent,
 } from "../src/lib/events";
-import { POST_DIR } from "./utils";
+import { POST_DIR, LOG } from "./utils";
 
 async function runWeekly() {
-  console.log("\x1b[1m🚀 Generating npmx Weekly Digest\x1b[0m");
+  LOG.info("Generating npmx Weekly Digest");
 
   try {
     const seq = await getNextSequenceNumber();
     const rawEvents = await fetchThisWeeksEvents();
 
-    if (rawEvents.length === 0) return;
+    if (rawEvents.length === 0) {
+      LOG.info("No events found for this week.");
+      return;
+    }
 
+    LOG.ai("Generating content with AI...");
     const { description, content } = await generateWeeklyContent(
       rawEvents,
       seq,
@@ -38,11 +42,10 @@ ${content}`;
     await mkdir(POST_DIR, { recursive: true });
     await writeFile(join(POST_DIR, `${seq}.mdx`), fileContent);
 
-    console.log(
-      `\x1b[32m✅ Created ${seq}.mdx with TopicSection components\x1b[0m`,
-    );
+    LOG.success(`Created ${seq}.mdx with TopicSection components`);
   } catch (error) {
-    console.error("\x1b[31mFailure:\x1b[0m", error);
+    const message = error instanceof Error ? error.message : String(error);
+    LOG.error(`Failure: ${message}`);
     process.exit(1);
   }
 }
