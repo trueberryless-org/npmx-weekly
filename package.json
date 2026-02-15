@@ -26,8 +26,12 @@
     "build": "astro check && astro build",
     "dev": "astro dev",
     "generate": "tsx scripts/generate-weekly.ts",
+    "generate:email": "tsx scripts/generate-emails.ts",
+    "send:email": "tsx scripts/send-emails.ts",
     "local:backfill": "tsx --env-file=.env scripts/backfill.ts",
     "local:generate": "tsx --env-file=.env scripts/generate-weekly.ts",
+    "local:generate:email": "tsx --env-file=.env scripts/generate-emails.ts",
+    "local:send:email": "tsx --env-file=.env scripts/send-emails.ts",
     "preview": "astro preview"
   },
   "dependencies": {
@@ -39,6 +43,7 @@
     "astro": "^5.17.1",
     "astro-expressive-code": "^0.41.6",
     "marked": "^17.0.2",
+    "resend": "^6.9.2",
     "sanitize-html": "^2.17.0",
     "sharp": "^0.34.5",
     "typescript": "^5.9.3"
@@ -50,6 +55,9 @@
     "prettier": "3.8.1",
     "prettier-plugin-astro": "0.14.1",
     "tsx": "^4.19.0"
+  },
+  "engines": {
+    "node": ">=18.17.0"
   },
   "packageManager": "pnpm@10.10.0"
 }

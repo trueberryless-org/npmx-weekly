@@ -22,12 +22,30 @@ const postsWithAuthors = await Promise.all(
 ---
 
 <Layout title="npmx.weekly">
-  <section class="intro">
-    <h1>npmx Weekly</h1>
-    <p>Get regular updates for the npmx ecosystem.</p>
+  <section class="hero-bleed">
+    <div class="hero-inner">
+      <h1>Stay in the loop</h1>
+      <p>
+        The latest updates from the npmx ecosystem, delivered directly to your
+        inbox every Sunday.
+      </p>
+
+      <form id="subscribe-form" class="subscribe-form">
+        <input
+          type="email"
+          name="email"
+          placeholder="email@example.com"
+          required
+          class="sub-input"
+        />
+        <button type="submit" class="sub-button">Subscribe</button>
+      </form>
+      <p id="form-msg" class="form-msg"></p>
+    </div>
   </section>
 
   <div class="post-list">
+    <h3 class="section-label">Latest Issues</h3>
     {
       postsWithAuthors.map(({ data, id, authors }) => {
         const postDate = new Date(data.date);
@@ -72,21 +90,154 @@ const postsWithAuthors = await Promise.all(
   }
 </Layout>
 
+<script>
+  const form = document.getElementById("subscribe-form") as HTMLFormElement;
+  const msg = document.getElementById("form-msg");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector("button") as HTMLButtonElement;
+    btn.disabled = true;
+    const formData = new FormData(form);
+    const email = formData.get("email");
+
+    if (msg) {
+      msg.textContent = "Processing...";
+      msg.className = "form-msg";
+    }
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const result = await res.json();
+
+      if (msg) {
+        msg.textContent = result.message;
+        msg.className = `form-msg ${res.ok ? "success" : "error"}`;
+      }
+
+      if (res.ok) form.reset();
+    } catch (err) {
+      if (msg) {
+        msg.textContent = "Something went wrong. Please try again.";
+        msg.className = "form-msg error";
+      }
+    } finally {
+      btn.disabled = false;
+    }
+  });
+</script>
+
 <style>
-  .intro {
-    margin-bottom: 3rem;
+  .hero-bleed {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 5rem;
+    padding: 5rem 0;
+    background-image: radial-gradient(
+      circle at top right,
+      #38536e10,
+      transparent
+    );
   }
 
-  h1 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+  .hero-inner {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    text-align: center;
+  }
+
+  .hero-inner h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
     color: var(--accent);
+    letter-spacing: -0.04em;
+    margin-bottom: 1rem;
   }
 
-  .intro p {
+  .hero-inner p {
     color: var(--text-muted);
-    line-height: 1.5;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .subscribe-form {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .sub-input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .sub-input:focus {
+    border-color: #38536e;
+  }
+
+  .sub-button {
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    padding: 0 1.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .sub-button:hover {
+    opacity: 0.85;
+  }
+
+  .form-msg {
+    font-size: 0.85rem;
+    margin-top: 1.25rem;
+    min-height: 1.25rem;
+    color: var(--text-muted);
+  }
+
+  .form-msg.success {
+    color: #10b981;
+  }
+  .form-msg.error {
+    color: #ef4444;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
   }
 
   .post-list {
