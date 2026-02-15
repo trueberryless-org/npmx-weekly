@@ -1,4 +1,4 @@
-name: Generate Weekly Post
+name: Generate Weekly Email Draft
 
 on:
   schedule:
@@ -6,10 +6,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  generate-post:
+  generate-email:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - name: Generate Token
@@ -33,36 +34,25 @@ jobs:
           node-version: "24"
           cache: "pnpm"
 
-      - name: Get Target Date
-        id: date
-        run: |
-          node -e "
-            const d = new Date();
-            d.setDate(d.getDate() + 2);
-            console.log('sunday=' + d.toISOString().split('T')[0]);
-          " >> $GITHUB_OUTPUT
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Generate post
+      - name: Generate email draft
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MODELS_TOKEN: ${{ secrets.MODELS_TOKEN }}
-        run: pnpm run generate
+        run: pnpm run generate:email
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7
         with:
           token: ${{ steps.app-token.outputs.token }}
-          commit-message: "content: automated weekly post"
-          title: "Weekly Post: ${{ steps.date.outputs.sunday }}"
+          commit-message: "content: automated weekly email"
+          title: "Weekly Email: ${{ github.event.schedule || 'Manual' }}"
           body: |
-            :wave: This is the automated draft for next Sunday's post!
+            :envelope: This is the automated email topics for this week.
 
-            If you have a project, update, or anything else regarding **npmx** that you'd like to share, you are welcome to suggest a new section by contributing to this PR.
-
-            This PR will remain open for community additions until Sunday evening, when it will be merged automatically. Please ping @trueberryless on your suggestions so they don't get missed!
-          branch: "content/automated-weekly-post"
-          labels: "🕔 weekly post,automerge"
+            Review the generated JSON in `src/content/emails/`.
+            This PR will be merged automatically on Sunday, which will trigger the Resend broadcast.
+          branch: "content/automated-weekly-email"
+          labels: "🕔 weekly email,automerge"
           delete-branch: true

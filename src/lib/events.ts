@@ -1,7 +1,7 @@
 import { readdir } from "node:fs/promises";
 import { join } from "node:path";
+import { INFERENCE_TIMEOUT, INFERENCE_URL } from "../../scripts/utils";
 
-const INFERENCE_URL = "https://models.inference.ai.azure.com/chat/completions";
 const POST_DIR = join(process.cwd(), "src/content/posts");
 const GITHUB_RAW_BASE =
   "https://raw.githubusercontent.com/trueberryless-org/npmx-digest/main/src/content/posts";
@@ -28,6 +28,7 @@ async function requestInference(payload: object) {
       Authorization: `Bearer ${token}`,
       "User-Agent": "npmx-weekly-bot",
     },
+    signal: AbortSignal.timeout(INFERENCE_TIMEOUT),
     body: JSON.stringify(payload),
   });
   if (!response.ok)

@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig, envField } from "astro/config";
 import mdx from "@astrojs/mdx";
 import expressiveCode from "astro-expressive-code";
 
@@ -18,4 +18,16 @@ export default defineConfig({
     domains: ["opengraph.githubassets.com"],
   },
   adapter: netlify(),
+  env: {
+    schema: {
+      RESEND_API_KEY: envField.string({
+        context: "server",
+        access: "secret",
+      }),
+      RESEND_SEGMENT_ID: envField.string({
+        context: "server",
+        access: "secret",
+      }),
+    },
+  },
 });
