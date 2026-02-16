@@ -42,4 +42,7 @@ async function send() {
   console.log(`Successfully broadcasted ${latestFile} (Sequence: ${sequence})`);
 }
 
-send();
+send().catch((err) => {
+  console.error("Failed to send email:", err);
+  process.exit(1);
+});
