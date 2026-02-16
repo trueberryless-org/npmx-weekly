@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "src/content/emails/*.json"
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -13,7 +14,7 @@ concurrency:
 
 jobs:
   broadcast:
-    if: github.actor == 'trueberryless-org[bot]' && contains(github.event.head_commit.message, 'Weekly')
+    if: github.event_name == 'workflow_dispatch' || (github.actor == 'trueberryless-org[bot]' && contains(github.event.head_commit.message, 'Weekly'))
     runs-on: ubuntu-latest
 
     steps:
