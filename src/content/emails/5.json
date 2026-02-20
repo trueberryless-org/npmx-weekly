@@ -1,0 +1,21 @@
+{
+  "sequence": 5,
+  "subject": "npmx Weekly #5",
+  "headline": "npmx Weekly #5",
+  "intro": "This week, we celebrate significant milestones and growth within our community. Join us as we highlight the importance of design in open source and recognize our achievements together.",
+  "topics": [
+    {
+      "title": "Open Source Software Design Needs",
+      "summary": "A call for more designers and product people in the open source software community, emphasizing the importance of user experience and product management."
+    },
+    {
+      "title": "Celebratory Milestones",
+      "summary": "npmx has reached 2,000 stars on GitHub, marking a significant achievement that reflects the dedication of our community members."
+    },
+    {
+      "title": "Community Growth",
+      "summary": "npmx is thriving with over 500 members, showcasing heightened interest and engagement, promising a bright future for collaboration and development."
+    }
+  ],
+  "generatedAt": "2026-02-20T18:35:12.321Z"
+}
