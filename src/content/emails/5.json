@@ -5,16 +5,16 @@
   "intro": "This week, significant updates have been rolled out to enhance user experience and improve application performance. Key bug fixes and feature integrations ensure npmx remains reliable and user-friendly.",
   "topics": [
     {
-      "title": "Critical Bug Fixes",
-      "summary": "Multiple essential bug fixes have been implemented, addressing navigation issues and rendering errors, significantly enhancing the reliability and accessibility of the application."
+      "title": "npmx repo hits 2k stars",
+      "summary": "Within a month after its first commit, the npmx repository hit the 2,000-star milestone—coincidentally on the lead's birthday. The project continues to grow rapidly, already surpassing 2,200 stars by the time of this update."
     },
     {
-      "title": "Performance and UI Improvements",
-      "summary": "Recent merges have optimized rendering times and refined the user interface, including layout fixes and scroll behavior adjustments, contributing to a smoother overall experience."
+      "title": "Community Holiday & Recharging",
+      "summary": "The npmx community took a week-long break from February 14th to 21st to 'touch grass.' The Discord was paused as members shared nature photos, emphasizing the vital importance of rest within open-source communities."
     },
     {
-      "title": "Internationalization Enhancements",
-      "summary": "New translations have been added, including missing German keys, making npmx more inclusive and user-friendly for a diverse audience."
+      "title": "Join the npmx.social PDS",
+      "summary": "Bailey Townsend’s PDS Moover tool is simplifying Bluesky migrations to the npmx.social PDS. This EU-hosted server provides a streamlined bridge for users to transition their data while staying synced with the wider network."
     }
   ],
   "generatedAt": "2026-02-27T18:31:29.114Z"
