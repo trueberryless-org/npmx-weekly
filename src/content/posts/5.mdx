@@ -1,0 +1,95 @@
+---
+title: "npmx Weekly #5"
+description: "This week's digest highlights several significant updates and improvements made to the npmx platform, focusing on user experience enhancements, bug fixes, and internationalization efforts."
+date: 2026-03-01
+authors:
+  - trueberryless
+---
+
+import TopicSection from "../../components/TopicSection.astro";
+
+> “The only way to do great work is to love what you do.”
+>
+> — **Steve Jobs**
+
+## Updates from Missing Control
+
+In the past week, the npmx team has made substantial progress in various areas, ensuring a smoother and more enjoyable experience for users. Here are the most impactful updates.
+
+<TopicSection
+  title="Bug Fixes and Issue Resolutions"
+  paragraphs="Multiple issues have been resolved, including server errors on package pages and layout problems during page loads. These fixes enhance the reliability of the application and ensure a smoother user experience when accessing package information."
+  sources={[{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/issues/1530"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/issues/1267"}]}
+/>
+
+---
+
+<TopicSection
+  title="UI Improvements"
+  paragraphs="Several pull requests have been merged to enhance the user interface, including fixes for layout issues, padding adjustments, and scroll behavior. These changes aim to improve user experience by ensuring elements are displayed correctly and interactions are smooth across different devices."
+  sources={[{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1591"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1589"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1504"}]}
+/>
+
+---
+
+<TopicSection
+  title="Performance Improvements"
+  paragraphs="The implementation of a payload cache aims to reduce rendering times by avoiding duplicate renders for HTML and JSON. Additionally, adjustments to sidebar spacing and error handling for FetchError have been made to enhance overall user interface performance and reliability."
+  sources={[{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1643"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1641"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1634"}]}
+/>
+
+---
+
+<TopicSection
+  title="Internationalization Enhancements"
+  paragraphs="Merged PR #1628 introduces missing German translations for various i18n keys, enhancing accessibility for German-speaking users. This update ensures that the application is more inclusive and user-friendly for a broader audience."
+  sources={[{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1628"}]}
+/>
+
+---
+
+<TopicSection
+  title="Storybook Integration"
+  paragraphs="Recent developments in integrating Storybook into npmx.dev allow users to view UI components directly from libraries that support it. This feature enhances user experience by providing a playground for component inspection, making it easier for developers to utilize UI libraries effectively."
+  sources={[{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1624"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/issues/1298"}]}
+/>
+
+---
+
+<TopicSection
+  title="TypeScript Type Detection Fixes"
+  paragraphs="A critical issue regarding TypeScript type detection has been addressed, ensuring that packages with declaration files are correctly recognized. This fix resolves a long-standing problem where types were not displayed for certain packages, enhancing developer experience."
+  sources={[{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1674"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/issues/1669"}]}
+/>
+
+---
+
+<TopicSection
+  title="User Migration and Features"
+  paragraphs="Users are migrating their accounts to npmx's social platform, highlighting the ease of transition and the benefits of using npmx's services. This reflects growing trust and satisfaction within the community regarding npmx's offerings."
+  sources={[{"platform":"bluesky","url":"https://bsky.app/profile/armand.npmx.social/post/3mfqn2ky6rs2d"}]}
+/>
+
+---
+
+<TopicSection
+  title="Data Management and Anomaly Correction"
+  paragraphs="Efforts are underway to address known data anomalies in npm download statistics. Recent discussions and pull requests focus on cleaning up outliers and improving the accuracy of download graphs, ensuring that users receive reliable data."
+  sources={[{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1636"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/issues/1241"},{"platform":"bluesky","url":"https://bsky.app/profile/danielroe.dev/post/3mftmurit222r"}]}
+/>
+
+---
+
+<TopicSection
+  title="API Documentation Improvements"
+  paragraphs="Several PRs have been merged to enhance API documentation handling, particularly addressing the issue of unexpected 'unknown' types. This includes adding support for more type kinds and improving the overall accuracy of API documentation."
+  sources={[{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1663"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/issues/1411"}]}
+/>
+
+---
+
+<p style="text-align: center; font-style: italic; margin-top: 5rem; color: var(--text-muted); opacity: 0.8;">
+  Thanks for tuning in to this week's updates! We're so glad to have you on this journey with us.
+  <br />
+  Stay curious, keep building, and we'll see you right back here next week! ✨
+</p>
