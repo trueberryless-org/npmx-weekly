@@ -1,0 +1,107 @@
+---
+title: "npmx Weekly #5"
+description: "This week's digest highlights several significant updates and improvements made to the npmx platform, focusing on on last week's holiday experience, user experience enhancements, and internationalization efforts."
+date: 2026-03-01
+authors:
+  - trueberryless
+---
+
+import TopicSection from "../../components/TopicSection.astro";
+
+> “The only way to do great work is to love what you do.”
+>
+> — **Steve Jobs**
+
+## Launchpad: The Weekly Flight Summary
+
+Before we dive into the technical achievments of the last two weeks, let's get a bigger picture of the most outstanding moments that happened.
+
+<TopicSection
+  title="npmx repo hits 2k stars"
+  paragraphs="Within a month after its first commit, the npmx repository hits the next big milestone: 2,000 stars. Coincidentally, this milestone happened on my birthday, which surely was already written in the stars more than 2,000 years ago - pun(s) intended. And the growth just keeps improving. At the time you read this, the project as already surpassed the next 200 stars."
+  sources={[{"platform":"bluesky","url":"https://bsky.app/profile/alexdln.com/post/3mfbypcgdic2z"},{"platform":"bluesky","url":"https://bsky.app/profile/npmx.dev/post/3mfbzyv5brs2q"}]}
+/>
+
+<TopicSection
+  title="We were on a holiday together"
+  paragraphs="The whole npmx community has been touching grass or snow for a whole week. The Discord was closed duing the period of 14 to 21 Feburary and people were sharing awesome pictures of nature, emphasizing the importance of taking some rest in open source communities."
+  sources={[{"platform":"web","url":"https://npmx.dev/recharging"}]}
+/>
+
+After our holiday, all the lovely people - and with them the flood of contributions - came back and are currently preparing the official public launch on March 3rd.
+
+<TopicSection
+  title="Join the npmx.social PDS"
+  paragraphs="Bailey Townsend’s PDS Moover tool is making waves by simplifying Bluesky migrations to the npmx.social PDS. By streamlining the technical hurdles of moving accounts, Townsend has provided a vital bridge for users looking to transition their data to this EU-hosted server while staying perfectly synced with the Bluesky network."
+  sources={[{"platform":"bluesky","url":"https://bsky.app/profile/baileytownsend.dev/post/3mer3l2t4rs2n"}]}
+/>
+
+As an honour to Bailey's valueable help, they get to show us their wisdom with this wonderful quote:
+
+> npmx is the friends we made along the way
+
+## Updates from Missing Control
+
+In the past week, the npmx team has made substantial progress in various areas, ensuring a smoother and more enjoyable experience for users. Here are the most impactful updates.
+
+<TopicSection
+  title="UI Improvements"
+  paragraphs="Several pull requests have been merged to enhance the user interface, including fixes for layout issues, padding adjustments, and scroll behavior. These changes aim to improve user experience by ensuring elements are displayed correctly and interactions are smooth across different devices."
+  sources={[{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1591"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1589"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1504"}]}
+/>
+
+---
+
+<TopicSection
+  title="Performance Improvements"
+  paragraphs="The implementation of a payload cache aims to reduce rendering times by avoiding duplicate renders for HTML and JSON. Additionally, adjustments to sidebar spacing and error handling for FetchError have been made to enhance overall user interface performance and reliability."
+  sources={[{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1643"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1641"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1634"}]}
+/>
+
+---
+
+<TopicSection
+  title="Storybook Integration"
+  paragraphs="Recent developments in integrating Storybook into npmx.dev allow users to view UI components directly from libraries that support it. This feature enhances user experience by providing a playground for component inspection, making it easier for developers to utilize UI libraries effectively."
+  sources={[{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1624"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/issues/1298"}]}
+/>
+
+---
+
+<TopicSection
+  title="TypeScript Type Detection Fixes"
+  paragraphs="A critical issue regarding TypeScript type detection has been addressed, ensuring that packages with declaration files are correctly recognized. This fix resolves a long-standing problem where types were not displayed for certain packages, enhancing developer experience."
+  sources={[{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1674"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/issues/1669"}]}
+/>
+
+---
+
+<TopicSection
+  title="User Migration and Features"
+  paragraphs="Users are migrating their accounts to npmx's social platform, highlighting the ease of transition and the benefits of using npmx's services. This reflects growing trust and satisfaction within the community regarding npmx's offerings."
+  sources={[{"platform":"bluesky","url":"https://bsky.app/profile/armand.npmx.social/post/3mfqn2ky6rs2d"},{"platform":"bluesky","url":"https://bsky.app/profile/t0.lv/post/3mej4mi2lb22s"},{"platform":"bluesky","url":"https://bsky.app/profile/seqre.dev/post/3mehimzeknk2o"},{"platform":"bluesky","url":"https://bsky.app/profile/npmx.dev/post/3mecdyj64lk2l"},{"platform":"bluesky","url":"https://bsky.app/profile/paulie.codes/post/3mfout36jck2j"},{"platform":"bluesky","url":"https://bsky.app/profile/trueberryless.npmx.social/post/3mfn5v7jvpk2f"},{"platform":"bluesky","url":"https://bsky.app/profile/sybers.fr/post/3mfhdiuxts22q"},{"platform":"bluesky","url":"https://bsky.app/profile/dom.npmx.social/post/3mforzb2mps2t"},{"platform":"bluesky","url":"https://bsky.app/profile/goose.art/post/3mecmzh3ku22y"}]}
+/>
+
+---
+
+<TopicSection
+  title="Data Management and Anomaly Correction"
+  paragraphs="Efforts are underway to address known data anomalies in npm download statistics. Recent discussions and pull requests focus on cleaning up outliers and improving the accuracy of download graphs, ensuring that users receive reliable data."
+  sources={[{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1636"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/issues/1241"},{"platform":"bluesky","url":"https://bsky.app/profile/danielroe.dev/post/3mftmurit222r"}]}
+/>
+
+---
+
+<TopicSection
+  title="API Documentation Improvements"
+  paragraphs="Several PRs have been merged to enhance API documentation handling, particularly addressing the issue of unexpected 'unknown' types. This includes adding support for more type kinds and improving the overall accuracy of API documentation."
+  sources={[{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/pull/1663"},{"platform":"github","url":"https://github.com/npmx-dev/npmx.dev/issues/1411"}]}
+/>
+
+---
+
+<p style="text-align: center; font-style: italic; margin-top: 5rem; color: var(--text-muted); opacity: 0.8;">
+  Thanks for tuning in to this week's updates! We're so glad to have you on this journey with us.
+  <br />
+  Stay curious, keep building, and we'll see you right back here next week! ✨
+</p>
