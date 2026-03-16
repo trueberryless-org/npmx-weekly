@@ -1,5 +1,6 @@
 import { glob } from "astro/loaders";
-import { defineCollection, reference, z } from "astro:content";
+import { defineCollection, reference } from "astro:content";
+import { z } from "astro/zod";
 
 import { AuthorSchema, PostSchema } from "./lib/schema";
 

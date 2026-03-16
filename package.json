@@ -36,25 +36,25 @@
   },
   "dependencies": {
     "@astro-community/astro-embed-bluesky": "^0.1.6",
-    "@astrojs/check": "^0.9.6",
-    "@astrojs/mdx": "^4.3.13",
-    "@astrojs/netlify": "^6.6.4",
-    "@astrojs/rss": "^4.0.15",
-    "astro": "^5.17.1",
-    "astro-expressive-code": "^0.41.6",
-    "marked": "^17.0.2",
-    "resend": "^6.9.2",
-    "sanitize-html": "^2.17.0",
+    "@astrojs/check": "^0.9.8",
+    "@astrojs/mdx": "^5.0.1",
+    "@astrojs/netlify": "^7.0.3",
+    "@astrojs/rss": "^4.0.17",
+    "astro": "^6.0.5",
+    "astro-expressive-code": "^0.41.7",
+    "marked": "^17.0.4",
+    "resend": "^6.9.4",
+    "sanitize-html": "^2.17.1",
     "sharp": "^0.34.5",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "6.0.2",
-    "@types/node": "^22.0.0",
-    "@types/sanitize-html": "^2.16.0",
+    "@types/node": "^25.5.0",
+    "@types/sanitize-html": "^2.16.1",
     "prettier": "3.8.1",
     "prettier-plugin-astro": "0.14.1",
-    "tsx": "^4.19.0"
+    "tsx": "^4.21.0"
   },
   "engines": {
     "node": ">=18.17.0"

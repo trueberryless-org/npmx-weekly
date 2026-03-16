@@ -1,9 +1,9 @@
-import { z } from "astro:content";
+import { z } from "astro/zod";
 
 export const AuthorSchema = z.object({
   name: z.string(),
-  picture: z.string().url(),
-  website: z.string().url(),
+  picture: z.url(),
+  website: z.url(),
 });
 
 export const PostSchema = z.object({
