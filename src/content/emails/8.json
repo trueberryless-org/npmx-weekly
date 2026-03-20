@@ -1,0 +1,21 @@
+{
+  "sequence": 8,
+  "subject": "npmx Weekly #8",
+  "headline": "npmx Weekly #8",
+  "intro": "Exciting updates are here with the release of v0.4.0! Join the growing npmx community as we celebrate enhancements and new features that elevate user experience.",
+  "topics": [
+    {
+      "title": "Version Release v0.4.0",
+      "summary": "The latest v0.4.0 release introduces improved translations, UI enhancements, and significant accessibility updates, ensuring a more robust user experience."
+    },
+    {
+      "title": "User Interface Enhancements",
+      "summary": "With PR #1672, users can now enjoy a multi-select feature on the search page, enhancing usability during package comparisons with a persistent selection counter and improved accessibility."
+    },
+    {
+      "title": "Community Engagement",
+      "summary": "The npmx community is buzzing with excitement over the new release, sharing experiences and encouraging contributions on platforms like Bluesky, fostering a sense of collaboration and support."
+    }
+  ],
+  "generatedAt": "2026-03-20T18:36:15.528Z"
+}
