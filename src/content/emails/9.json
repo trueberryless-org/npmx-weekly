@@ -1,0 +1,21 @@
+{
+  "sequence": 9,
+  "subject": "npmx Weekly #9",
+  "headline": "npmx Weekly #9",
+  "intro": "This week, we made significant strides in enhancing user experience and code quality. Our community continues to engage and contribute, driving forward the npmx project.",
+  "topics": [
+    {
+      "title": "User Interface Improvements",
+      "summary": "Multiple pull requests have addressed UI challenges, fixing layout issues on package pages and enhancing mobile menu functionality, resulting in improved accessibility and user experience."
+    },
+    {
+      "title": "Code Optimization and Testing",
+      "summary": "Optimizations have been made to improve performance, including reducing unnecessary Date object creation and adding new tests for the `useRepositoryUrl` composable, ensuring better reliability."
+    },
+    {
+      "title": "Chart Enhancements",
+      "summary": "A new split view option for download charts has been introduced, enhancing accessibility for users with color vision deficiency and allowing easier data comparison on the compare page."
+    }
+  ],
+  "generatedAt": "2026-03-27T18:44:56.044Z"
+}
