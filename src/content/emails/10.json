@@ -1,0 +1,21 @@
+{
+  "sequence": 10,
+  "subject": "npmx Weekly #10",
+  "headline": "npmx Weekly #10",
+  "intro": "Exciting updates are here! Read on for key highlights about our recent conference, trust policy enhancements, and user experience improvements.",
+  "topics": [
+    {
+      "title": "npmx Conference Highlights",
+      "summary": "The recent conference featured engaging presentations, particularly from @npmx.dev, receiving positive feedback and fostering a lively atmosphere. Attendees shared their experiences, marking the event as a success."
+    },
+    {
+      "title": "Trust Policy Enhancements",
+      "summary": "Discussions have emphasized the need for better visibility and preventability in package management. The integration of @pnpm.io and @npmx.dev aims to enhance user trust and security during installations."
+    },
+    {
+      "title": "User Experience Research Findings",
+      "summary": "Recent research revealed a strong preference for a light mode, leading to the decision to remove the dark theme from npmx. This change, supported by 97% of users, aims to optimize usability and consistency across the platform."
+    }
+  ],
+  "generatedAt": "2026-04-03T18:36:16.092Z"
+}
