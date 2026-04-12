@@ -1,0 +1,21 @@
+{
+  "sequence": 11,
+  "subject": "npmx Weekly #11",
+  "headline": "npmx Weekly #11",
+  "intro": "Exciting updates are here to elevate your npmx experience! Check out the latest features designed to boost efficiency and enhance data visualization.",
+  "topics": [
+    {
+      "title": "Command Palette Feature",
+      "summary": "The newly implemented command palette allows users to perform quick actions and navigate seamlessly through the app, enhancing accessibility and workflow efficiency."
+    },
+    {
+      "title": "Quadrant Chart Implementation",
+      "summary": "Introducing a quadrant chart on the compare page, enabling clearer insights into package adoption and efficiency, complete with export options and interactive tooltips."
+    },
+    {
+      "title": "Release Updates",
+      "summary": "The deployment of versions 0.8.1 and 0.8.0 brings various improvements and new functionalities, ensuring a competitive and user-friendly platform."
+    }
+  ],
+  "generatedAt": "2026-04-10T18:40:57.112Z"
+}
