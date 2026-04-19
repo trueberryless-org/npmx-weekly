@@ -1,0 +1,21 @@
+{
+  "sequence": 12,
+  "subject": "npmx Weekly #12",
+  "headline": "npmx Weekly #12",
+  "intro": "Exciting enhancements and updates are rolling out this week! Dive into the latest features designed to improve your experience and bolster security within the npmx platform.",
+  "topics": [
+    {
+      "title": "Feature Enhancements for Comparison Page",
+      "summary": "New features, including GitHub stars and issues, have been added to the comparison page, providing users with comprehensive insights based on their requests."
+    },
+    {
+      "title": "GitHub Actions Updates",
+      "summary": "Major version upgrades for actions/download-artifact and actions/upload-artifact introduce support for direct uploads and improved artifact handling, ensuring compatibility with Node.js 24."
+    },
+    {
+      "title": "Download Graph Discrepancies",
+      "summary": "Users have reported significant discrepancies in download statistics between npmx and npmjs, prompting investigations to ensure data accuracy."
+    }
+  ],
+  "generatedAt": "2026-04-17T18:46:05.347Z"
+}
