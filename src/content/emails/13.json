@@ -1,0 +1,21 @@
+{
+  "sequence": 13,
+  "subject": "npmx Weekly #13",
+  "headline": "npmx Weekly #13",
+  "intro": "Exciting updates are here to improve your experience with npmx! Dive into our latest enhancements that promise optimized performance and a more seamless user interface.",
+  "topics": [
+    {
+      "title": "Pagination and Performance Issues",
+      "summary": "Recent updates have resolved critical pagination performance issues that caused browser crashes when scrolling past 1000 results. The implementation of a termination check in the fetchMore function prevents freezing, ensuring a smoother experience."
+    },
+    {
+      "title": "Brand Page Enhancements",
+      "summary": "Improvements to the brand page have addressed PNG download issues and layout shifts during server-side rendering, ensuring correct asset downloads and preventing visual discrepancies for a better user experience."
+    },
+    {
+      "title": "Enhanced Package Comparison Features",
+      "summary": "Users can now visually compare up to 10 packages using scatter charts, improving analytical capabilities and facilitating informed decision-making."
+    }
+  ],
+  "generatedAt": "2026-04-24T18:42:17.715Z"
+}
