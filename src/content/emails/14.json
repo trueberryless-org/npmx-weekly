@@ -1,0 +1,21 @@
+{
+  "sequence": 14,
+  "subject": "npmx Weekly #14",
+  "headline": "npmx Weekly #14",
+  "intro": "Explore the latest milestones and updates shaping the npmx landscape. Discover significant advancements in package management and user engagement.",
+  "topics": [
+    {
+      "title": "pnpm Version Update",
+      "summary": "pnpm v11.0.0 has been released, bringing continued improvements in package management. Users should update to the latest version using 'pnpm self-update latest-11'."
+    },
+    {
+      "title": "npmx Growth Recognition",
+      "summary": "npmx has been recognized as the #7 fastest-growing open-source project of 2026, and #2 among non-AI-focused initiatives, underscoring its rising prominence in the community."
+    },
+    {
+      "title": "Internationalization Updates",
+      "summary": "The introduction of the European Portuguese locale enhances npmx's accessibility, featuring a new JSON file for translations, thus broadening its global reach."
+    }
+  ],
+  "generatedAt": "2026-05-01T18:59:21.823Z"
+}
