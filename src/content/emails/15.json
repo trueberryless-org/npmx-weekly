@@ -1,0 +1,17 @@
+{
+  "sequence": 15,
+  "subject": "npmx Weekly #15",
+  "headline": "npmx Weekly #15",
+  "intro": "Stay ahead with the latest developments in the npmx project! Check out our key updates that enhance compatibility and modernize our packages.",
+  "topics": [
+    {
+      "title": "Dependency Updates",
+      "summary": "Recent pull requests focus on vital updates to dependencies within the npmx project, including maintenance of lock files and upgrades to packages like @e18e/eslint-plugin and @storybook-vue/nuxt to ensure optimal performance."
+    },
+    {
+      "title": "ESM Transition in Packages",
+      "summary": "The shift of @badrap/valita to ESM-only marks a significant modernization effort for JavaScript packages, emphasizing reduced package size and enhanced performance, which is well-received by the community."
+    }
+  ],
+  "generatedAt": "2026-05-08T19:05:30.867Z"
+}
