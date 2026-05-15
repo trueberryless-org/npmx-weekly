@@ -1,0 +1,21 @@
+{
+  "sequence": 16,
+  "subject": "npmx Weekly #16",
+  "headline": "npmx Weekly #16",
+  "intro": "Exciting developments are happening at npmx! Check out the latest updates that enhance user experience and community recognition.",
+  "topics": [
+    {
+      "title": "Version Release 0.11.0",
+      "summary": "This release introduces a package timeline page, progressive loading for organization packages, and UI improvements, enhancing user engagement and functionality."
+    },
+    {
+      "title": "Fix for Sorting Desynchronization",
+      "summary": "A pull request was merged to ensure consistent sorting on organization pages, aligning with user expectations during navigation."
+    },
+    {
+      "title": "npmx Growth Recognition",
+      "summary": "npmx.dev has been recognized as the fastest-growing emerging open source organization in Q1 2026, standing out as the only non-AI tool in the top 10."
+    }
+  ],
+  "generatedAt": "2026-05-15T19:19:25.135Z"
+}
