@@ -1,0 +1,21 @@
+{
+  "sequence": 17,
+  "subject": "npmx Weekly #17",
+  "headline": "npmx Weekly #17",
+  "intro": "Stay updated with the most impactful changes in our ecosystem! This week, we focus on new enhancements that improve security, reliability, and dependency management.",
+  "topics": [
+    {
+      "title": "Node Modules Inspector Update",
+      "summary": "The recent update to node-modules-inspector@2.1.0 introduces the 'Maintainer Actions' report page, offering actionable insights for package maintainers to enhance ecosystem quality."
+    },
+    {
+      "title": "Trusted Publishing Standards",
+      "summary": "A new gold standard for trusted publishing mandates two-factor authentication (2FA) for maintainers, bolstering security and ensuring that only verified individuals can release updates."
+    },
+    {
+      "title": "GitHub Actions Best Practices",
+      "summary": "Publishers are urged to implement immutable releases in GitHub actions to guarantee workflow stability and reliability, crucial for maintaining consistent production environments."
+    }
+  ],
+  "generatedAt": "2026-05-22T19:24:23.241Z"
+}
