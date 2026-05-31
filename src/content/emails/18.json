@@ -1,0 +1,21 @@
+{
+  "sequence": 18,
+  "subject": "npmx Weekly #18",
+  "headline": "npmx Weekly #18",
+  "intro": "Exciting updates have arrived for npmx! This week’s highlights include a major version release and important community developments.",
+  "topics": [
+    {
+      "title": "Version Release v0.13.0",
+      "summary": "Merged PR #2713 introduces version v0.13.0 of npmx.dev, featuring enhancements like nodejs noodle, UI improvements, and various bug fixes, elevating overall performance."
+    },
+    {
+      "title": "Repository Metadata Fixes",
+      "summary": "Merged PR #2769 resolves a bug in fetching repository metadata by adjusting object spreading, ensuring the default User-Agent header is preserved while allowing custom headers."
+    },
+    {
+      "title": "URL Redirection for Versions View",
+      "summary": "A new feature redirects users from the npmjs versions tab to the npmx versions view, streamlining user experience across both platforms."
+    }
+  ],
+  "generatedAt": "2026-05-29T20:09:36.679Z"
+}
