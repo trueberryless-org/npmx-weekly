@@ -1,0 +1,21 @@
+{
+  "sequence": 19,
+  "subject": "npmx Weekly #19",
+  "headline": "npmx Weekly #19",
+  "intro": "Celebrating love, community, and inclusivity this month! Check out our top highlights that make a difference.",
+  "topics": [
+    {
+      "title": "Pride Month Celebrations",
+      "summary": "Join us in honoring Pride Month with heartfelt messages supporting the LGBTQ+ community, emphasizing love and recognition during this important time."
+    },
+    {
+      "title": "Internationalization Updates",
+      "summary": "We've improved localization by implementing the Intl.NumberFormat API, ensuring accurate display of size percentages across different languages, enhancing user experience."
+    },
+    {
+      "title": "Community Engagement Game",
+      "summary": "Participate in our new interactive game to guess a package from a timeline graph! Win a $20 donation to an open-source project of your choice and promote community support."
+    }
+  ],
+  "generatedAt": "2026-06-05T19:42:55.791Z"
+}
