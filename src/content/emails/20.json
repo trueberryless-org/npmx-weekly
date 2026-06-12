@@ -1,0 +1,21 @@
+{
+  "sequence": 20,
+  "subject": "npmx Weekly #20",
+  "headline": "npmx Weekly #20",
+  "intro": "Exciting updates are brewing within the npm community! Join us as we explore significant advancements in module standards, security practices, and community trust.",
+  "topics": [
+    {
+      "title": "ESM vs CJS Growth",
+      "summary": "The adoption of ECMAScript Modules (ESM) has risen to 38.0% among popular npm packages, marking a strong shift from CommonJS to modern JavaScript module standards."
+    },
+    {
+      "title": "Security Incidents in Dependency Management",
+      "summary": "Recent findings suggest that the common practice of running 'npm install' posed security risks. The introduction of opt-in dependency install scripts in v12 aims to enhance safety in package management."
+    },
+    {
+      "title": "npmx Verification Initiative",
+      "summary": "npmx is launching a verification initiative for maintainers and projects, enhancing trust and transparency in the open-source community through verified badges."
+    }
+  ],
+  "generatedAt": "2026-06-12T19:55:33.575Z"
+}
