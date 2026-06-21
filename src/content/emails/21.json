@@ -1,0 +1,21 @@
+{
+  "sequence": 21,
+  "subject": "npmx Weekly #21",
+  "headline": "npmx Weekly #21",
+  "intro": "This week, we spotlight crucial developments in community engagement and social media decentralization while celebrating essential contributions from our supporters. Stay informed and engaged with these impactful topics shaping our ecosystem.",
+  "topics": [
+    {
+      "title": "Community Engagement",
+      "summary": "Insights from @danielroe.dev and @patak.cat at @webengineshackfest.org highlight the significance of collaboration and shared knowledge in the npmx ecosystem, essential for fostering innovation and growth."
+    },
+    {
+      "title": "Decentralization of Social Media",
+      "summary": "Atproto.com is leading the charge to decentralize social media, enhancing user control and privacy, with npmx facilitating critical integrations within the Atmosphere framework."
+    },
+    {
+      "title": "Community Support",
+      "summary": "A heartfelt thank you to CodeRabbit and Santosh for their generous monthly sponsorship of $1K, underscoring the importance of community support for the sustainability of open-source projects."
+    }
+  ],
+  "generatedAt": "2026-06-19T19:27:28.270Z"
+}
