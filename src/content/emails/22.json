@@ -1,0 +1,21 @@
+{
+  "sequence": 22,
+  "subject": "npmx Weekly #22",
+  "headline": "npmx Weekly #22",
+  "intro": "Dive into this week's top highlights from the npm ecosystem. From exciting community recognition to major dependency updates, we've got you covered!",
+  "topics": [
+    {
+      "title": "Community Recognition",
+      "summary": "A developer shares their excitement about having their libraries featured on npmx.dev, showcasing the platform's commitment to elevating community contributions within the npm ecosystem."
+    },
+    {
+      "title": "Dependency Updates",
+      "summary": "PR #2943 updates the @floating-ui/vue dependency to version 2.0.0, dropping support for Vue 2 and ensuring compatibility with the latest Vue features for optimal performance."
+    },
+    {
+      "title": "Sisteransi Transition to ESM",
+      "summary": "The sisteransi library has transitioned to ECMAScript Module (ESM) only, a significant update expected to enhance performance and compatibility, benefiting the library's 56 million weekly downloads."
+    }
+  ],
+  "generatedAt": "2026-06-26T19:28:48.064Z"
+}
