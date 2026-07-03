@@ -1,0 +1,21 @@
+{
+  "sequence": 23,
+  "subject": "npmx Weekly #23",
+  "headline": "npmx Weekly #23",
+  "intro": "Exciting developments are underway at npmx! Dive into our latest updates that showcase community engagement and product enhancements.",
+  "topics": [
+    {
+      "title": "Community Engagement",
+      "summary": "npmx is fostering community involvement by encouraging participation in project verification efforts. Positive feedback highlights the importance of community support in scaling these initiatives."
+    },
+    {
+      "title": "Release Updates",
+      "summary": "The new v0.16.0 update has been released for npmx.dev, featuring UI enhancements, improved translations, and exciting new functionalities like the downloads chart embed for a better user experience."
+    },
+    {
+      "title": "Module Replacements Update",
+      "summary": "The release of module-replacements 3.0.0 marks a significant milestone with over 400K downloads weekly, further powering numerous tools, including the ESLint plugin and package help text on npmx.dev."
+    }
+  ],
+  "generatedAt": "2026-07-03T19:04:24.249Z"
+}
