@@ -1,0 +1,21 @@
+{
+  "sequence": 24,
+  "subject": "npmx Weekly #24",
+  "headline": "npmx Weekly #24",
+  "intro": "Exciting updates and community engagement are on the rise in the npmx ecosystem. Dive into this week's top highlights that are driving innovation and collaboration among developers.",
+  "topics": [
+    {
+      "title": "Nub Package Manager Integration",
+      "summary": "The integration of the nub package manager into npmx enhances flexibility by allowing users to choose it alongside npm and yarn, improving command execution speed and supporting workspace functionality."
+    },
+    {
+      "title": "Module Federation Optimization",
+      "summary": "A partnership with @sanity.io has optimized the Module Federation Vite plugin, drastically reducing its dependency size and showcasing effective collaboration in enhancing software efficiency."
+    },
+    {
+      "title": "Vite Download Surge",
+      "summary": "Vite has seen a remarkable 4x increase in downloads over the past six months, indicating a significant shift in the npm ecosystem and the rising preference for faster, more efficient build tools."
+    }
+  ],
+  "generatedAt": "2026-07-10T19:16:53.007Z"
+}
