@@ -1,0 +1,21 @@
+{
+  "sequence": 25,
+  "subject": "npmx Weekly #25",
+  "headline": "npmx Weekly #25",
+  "intro": "Exciting updates and community highlights are here! Dive into the latest version enhancements, significant improvements in Module Federation, and engaging community events.",
+  "topics": [
+    {
+      "title": "Release of Version 0.17.0",
+      "summary": "The release of version 0.17.0 brings essential features and fixes to the npmx.dev platform, including color-bridge data anomalies and UI improvements, all aimed at enhancing user experience."
+    },
+    {
+      "title": "Module Federation Updates",
+      "summary": "The new Module Federation 2.8.0 introduces a 54% size reduction for the official Vite plugin, improving efficiency and usability for developers across the ecosystem."
+    },
+    {
+      "title": "Community Events in Berlin",
+      "summary": "Local contributors are organizing a series of community events in Berlin, offering opportunities for networking, collaboration, and vibrant discussions among tech enthusiasts."
+    }
+  ],
+  "generatedAt": "2026-07-17T18:54:36.126Z"
+}
