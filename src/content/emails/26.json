@@ -1,0 +1,21 @@
+{
+  "sequence": 26,
+  "subject": "npmx Weekly #26",
+  "headline": "npmx Weekly #26",
+  "intro": "This week, we're celebrating significant milestones and impactful updates across our platform. Join us as we dive into the latest achievements and enhancements shaping the developer experience.",
+  "topics": [
+    {
+      "title": "Biome.js Milestone",
+      "summary": "@biomejs.dev has reached an impressive 10 million weekly downloads, showcasing its growing popularity and strong user engagement within the developer community."
+    },
+    {
+      "title": "Magic-String Package Updates",
+      "summary": "The magic-string package has hit 140 million downloads per week with recent enhancements, including ESM-only support and better performance, reflecting ongoing improvements in our ecosystem."
+    },
+    {
+      "title": "User Experience and Interface Updates",
+      "summary": "Recent PRs have added direct links to sponsorship tiers and a 'create new account' button on the PDS page, enhancing user interactions and accessibility on the npmx platform."
+    }
+  ],
+  "generatedAt": "2026-07-24T19:13:50.543Z"
+}
