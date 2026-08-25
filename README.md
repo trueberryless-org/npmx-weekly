@@ -1,5 +1,8 @@
 # 📰 npmx-weekly
 
+> [!IMPORTANT]  
+> Because [GitHub Models were retired](https://github.blog/changelog/2026-07-01-github-models-is-being-fully-retired-on-july-30-2026/), this website does not continue to generate new entries. It will be archived and kept to remember the rapid contributor grow and awesome feature drops of npmx.
+
 [![Built with Astro](https://astro.badg.es/v2/built-with-astro/tiny.svg)](https://astro.build)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/afbfb0ad-fbdc-4839-991d-237cd0fc6418/deploy-status)](https://app.netlify.com/projects/npmx-weekly/deploys)
 
